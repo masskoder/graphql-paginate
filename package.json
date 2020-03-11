@@ -1,0 +1,29 @@
+{
+  "name": "graphql-paginate",
+  "version": "1.0.0",
+  "description": "graphql pagination helper ",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/masskoder/graphql-paginate.git"
+  },
+  "keywords": [
+    "graphql",
+    "pagination"
+  ],
+  "author": "Masskoder",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/masskoder/graphql-paginate/issues"
+  },
+  "homepage": "https://github.com/masskoder/graphql-paginate#readme",
+  "devDependencies": {
+    "jest": "^25.1.0"
+  },
+  "dependencies": {
+    "sequelize": "^5.21.5"
+  }
+}
