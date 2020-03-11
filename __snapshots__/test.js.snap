@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pagination call skip , first and limit args  1`] = `
+Object {
+  "edges": Array [
+    Object {
+      "cursor": 1,
+      "node": Object {
+        "id": 1,
+        "name": "user 1",
+      },
+    },
+    Object {
+      "cursor": 2,
+      "node": Object {
+        "id": 2,
+        "name": "user 2",
+      },
+    },
+  ],
+  "pageInfo": Object {
+    "endCursor": 2,
+    "hasNextPage": true,
+    "hasPreviousPage": true,
+    "startCursor": 1,
+  },
+  "totalCount": 5,
+}
+`;
