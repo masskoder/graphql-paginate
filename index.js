@@ -1,7 +1,4 @@
 const { Op } = require("sequelize");
-const baseResult = async result => {
-  return result;
-};
 
 module.exports = async (Model, args, attribute, orderBy) => {
   const { skip, after, before, first, last, LIMIT = 10, _where = {} } = args;
