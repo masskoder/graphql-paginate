@@ -3,13 +3,7 @@ const baseResult = async result => {
   return result;
 };
 
-module.exports = async function graphqlPagination(
-  Model,
-  args,
-  attribute,
-  orderBy,
-  resultHandler = baseResult
-) {
+module.exports = async (Model, args, attribute, orderBy) => {
   const { skip, after, before, first, last, LIMIT = 10, _where = {} } = args;
 
   let hasPreviousPage = false;
@@ -82,7 +76,7 @@ module.exports = async function graphqlPagination(
   const edges = await Promise.all(
     results.map(async result => {
       return {
-        node: await resultHandler(result),
+        node: await result,
         cursor: result[attribute]
       };
     })

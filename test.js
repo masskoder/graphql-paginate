@@ -1,6 +1,6 @@
 const graphqlPagination = require("./index");
 
-describe("pagination", () => {
+describe("pagination helper", () => {
   const models = [
     {
       id: 1,

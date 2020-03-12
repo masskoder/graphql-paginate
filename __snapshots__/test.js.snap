@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`pagination call skip , first and limit args  1`] = `
+exports[`pagination helper call skip , first and limit args  1`] = `
 Object {
   "edges": Array [
     Object {
