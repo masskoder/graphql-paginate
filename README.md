@@ -2,7 +2,7 @@
 
 GraphQL pagination helper that makes it easy to get pagination response.
 
-For moment support only MYSQL and POSTGRESQL database with Sequelize.
+Support only MYSQL and POSTGRESQL databases with Sequelize and also MONGODB with Mongoose
 
 ### Installation
 
@@ -18,11 +18,11 @@ module.exports = async function getTransactions(parent, args, context) {
   const { db } = context;
   const { UserTransaction } = db;
 
-  return pagination(UserTransaction, args, "id", "DESC");
+  return pagination({ model : UserTransaction, args, attribute : "id", orderBy : "DESC"});
 };
 ```
 
-### Response Schema
+### Response Schema (Sequelize)
 
 ```
  {
