@@ -2,7 +2,7 @@
 
 GraphQL pagination helper that makes it easy to get pagination response.
 
-Support only MYSQL and POSTGRESQL databases with Sequelize also MONGODB with Mongoose
+Support only MYSQL and POSTGRESQL databases with Sequelize and also MONGODB with Mongoose
 
 ### Installation
 
@@ -10,27 +10,15 @@ Support only MYSQL and POSTGRESQL databases with Sequelize also MONGODB with Mon
 npm install graphql-paginate
 ```
 
-### Usage with sequelize (Default)
+### Usage
 
 ```javascript
-const { pagination, SEQUELIZE } = require("graphql-paginate");
+const pagination = require("graphql-paginate");
 module.exports = async function getTransactions(parent, args, context) {
   const { db } = context;
   const { UserTransaction } = db;
 
-  return pagination(UserTransaction, args, "id", "DESC", SEQUELIZE);
-};
-```
-
-### Usage with mongoose
-
-```javascript
-const { pagination, MONGOOSE } = require("graphql-paginate");
-module.exports = async function getTransactions(parent, args, context) {
-  const { db } = context;
-  const { UserTransaction } = db;
-
-  return pagination(UserTransaction, args, "amount", "DESC", MONGOOSE);
+  return pagination({ model : UserTransaction, args, attribute : "id", orderBy : "DESC"});
 };
 ```
 

@@ -1,4 +1,4 @@
-const { pagination : graphqlPagination } = require("./index");
+const graphqlPagination = require("./index");
 
 describe("pagination helper", () => {
   const models = [
@@ -34,7 +34,7 @@ describe("pagination helper", () => {
       first: 2,
       LIMIT: 2
     };
-    const pagination = await graphqlPagination(mockModel, args, "id");
+    const pagination = await graphqlPagination({model : mockModel, args, attribute : "id"});
 
     expect(pagination).toMatchSnapshot();
   });

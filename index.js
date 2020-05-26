@@ -1,24 +1,17 @@
+const mongoose = require('mongoose');
 const paginationController = require('./setup');
 const { SEQUELIZE, MONGOOSE } = require('./helper');
 
-const ORM_CHECK = [ SEQUELIZE , MONGOOSE ];
+module.exports = async ({model, args, attribute, orderBy = "DESC"}) => {
 
-const pagination = async (Model, args, attribute, orderBy, orm = SEQUELIZE) => {
+  if(model instanceof mongoose.Model){
 
-  if(ORM_CHECK.includes(orm.toLowerCase())){
-
-    return await paginationController(Model, args, attribute, orderBy, orm);
+    return await paginationController(model, args, attribute, orderBy, MONGOOSE);
 
   }else{
 
-    return [];
+    return await paginationController(model, args, attribute, orderBy, SEQUELIZE);
 
   }
   
-}
-
-module.exports = {
-  pagination,
-  SEQUELIZE,
-  MONGOOSE
 }

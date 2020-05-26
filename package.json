@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "bluebird": "^3.7.2",
+    "mongoose": "^5.9.16",
     "sequelize": "^5.21.5"
   }
 }
