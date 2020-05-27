@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+const { Mongoose } = require('mongoose');
 const paginationController = require('./setup');
 const { SEQUELIZE, MONGOOSE } = require('./helper');
 
 module.exports = async ({model, args, attribute, orderBy = "DESC"}) => {
 
-  if(model instanceof mongoose.Model){
+  if(model && model.prototype && model.prototype.db && model.prototype.db.base){
 
     return await paginationController(model, args, attribute, orderBy, MONGOOSE);
 
