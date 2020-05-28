@@ -4,12 +4,12 @@ const { SEQUELIZE } = require('./helper');
 
 module.exports = async (Model, args, attribute, orderBy, orm) => {
   const {
-    skip,
+    skip = 0,
     after,
     before,
     first,
     last,
-    LIMIT = 10,
+    limit = 10,
     _where = {}
   } = args;
 
@@ -125,8 +125,8 @@ module.exports = async (Model, args, attribute, orderBy, orm) => {
         order: [
           [attribute, orderBy]
         ],
-        limit: LIMIT + 1,
-        offset: 0,
+        limit: limit + 1,
+        offset: skip,
         where: {
           ..._where
         }
@@ -135,15 +135,15 @@ module.exports = async (Model, args, attribute, orderBy, orm) => {
       results = await Model.find({
           ..._where
         })
-        .skip(0)
-        .limit(LIMIT + 1)
+        .skip(skip)
+        .limit(limit + 1)
         .sort({
           [attribute]: orderBy.toLowerCase()
         });
     }
 
-    hasNextPage = results.length > LIMIT;
-    results = results.slice(0, LIMIT);
+    hasNextPage = results.length > limit;
+    results = results.slice(0, limit);
   }
 
   let start = null;
