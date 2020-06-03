@@ -12,13 +12,28 @@ npm install graphql-paginate
 
 ### Usage
 
+#### List of args Values
+
+- skip : Number
+- after : Any
+- before : Any
+- first : Number
+- last : Number
+- limit : number
+- \_where : object
+
 ```javascript
 const pagination = require("graphql-paginate");
 module.exports = async function getTransactions(parent, args, context) {
   const { db } = context;
   const { UserTransaction } = db;
 
-  return pagination({ model : UserTransaction, args, attribute : "id", orderBy : "DESC"});
+  return pagination({
+    model: UserTransaction,
+    args,
+    attribute: "id",
+    orderBy: "DESC",
+  });
 };
 ```
 
