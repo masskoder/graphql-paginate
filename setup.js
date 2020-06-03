@@ -1,6 +1,6 @@
 const { Op } = require("sequelize");
-const Promise = require('bluebird');
-const { SEQUELIZE } = require('./helper');
+const Promise = require("bluebird");
+const { SEQUELIZE } = require("./helper");
 
 module.exports = async (Model, args, attribute, orderBy, orm) => {
   const {
@@ -10,7 +10,7 @@ module.exports = async (Model, args, attribute, orderBy, orm) => {
     first,
     last,
     limit = 10,
-    _where = {}
+    _where = {},
   } = args;
 
   let hasPreviousPage = false;
@@ -30,87 +30,80 @@ module.exports = async (Model, args, attribute, orderBy, orm) => {
     if (orm === SEQUELIZE) {
       results = await Model.findAll({
         where: {
-          ..._where
+          ..._where,
         },
-        order: [
-          [attribute, orderBy]
-        ],
+        order: [[attribute, orderBy]],
         limit: first + 1,
-        offset: skip
+        offset: skip,
       });
     } else {
       results = await Model.find({
-          ..._where
-        })
+        ..._where,
+      })
         .skip(skip)
         .limit(first + 1)
         .sort({
-          [attribute]: orderBy.toLowerCase()
+          [attribute]: orderBy.toLowerCase(),
         });
     }
 
     hasNextPage = results.length > first;
     results = results.slice(0, first);
 
-    if (after === "String") {
+    if (typeof after === "String") {
       hasPreviousPage = true;
 
       if (orm === SEQUELIZE) {
         results = await Model.findAll({
-          order: [
-            [attribute, orderBy]
-          ],
+          order: [[attribute, orderBy]],
           limit: first + 1,
           where: {
             ..._where,
             [attribute]: {
-              [Op.gt]: after
-            }
-          }
+              [Op.gt]: after,
+            },
+          },
         });
       } else {
         results = await Model.find({
-            ..._where,
-            [attribute]: {
-              $gt: after
-            }
-          })
+          ..._where,
+          [attribute]: {
+            $gt: after,
+          },
+        })
           .limit(first + 1)
           .sort({
-            [attribute]: orderBy.toLowerCase()
+            [attribute]: orderBy.toLowerCase(),
           });
       }
 
       hasNextPage = results.length > first;
       results = results.slice(0, first);
     }
-
   } else if (before && last) {
     hasNextPage = true;
 
     if (orm === SEQUELIZE) {
       results = await Model.findAll({
-        order: [
-          [attribute, orderBy]
-        ],
+        order: [[attribute, orderBy]],
         limit: last + 1,
         where: {
           ..._where,
           [attribute]: {
-            [Op.lt]: before
-          }
-        }
+            [Op.lt]: before,
+          },
+        },
       });
     } else {
       results = await Model.find({
-          ..._where,
-          [attribute]: {
-            $lt: before
-          }
-        })
+        ..._where,
+        [attribute]: {
+          $lt: before,
+        },
+      })
         .limit(last + 1)
         .sort({
-          [attribute]: orderBy.toLowerCase()
+          [attribute]: orderBy.toLowerCase(),
         });
     }
 
@@ -122,23 +115,21 @@ module.exports = async (Model, args, attribute, orderBy, orm) => {
 
     if (orm === SEQUELIZE) {
       results = await Model.findAll({
-        order: [
-          [attribute, orderBy]
-        ],
+        order: [[attribute, orderBy]],
         limit: limit + 1,
         offset: skip,
         where: {
-          ..._where
-        }
+          ..._where,
+        },
       });
     } else {
       results = await Model.find({
-          ..._where
-        })
+        ..._where,
+      })
         .skip(skip)
         .limit(limit + 1)
         .sort({
-          [attribute]: orderBy.toLowerCase()
+          [attribute]: orderBy.toLowerCase(),
         });
     }
 
@@ -155,10 +146,10 @@ module.exports = async (Model, args, attribute, orderBy, orm) => {
   }
 
   const edges = await Promise.all(
-    results.map(async result => {
+    results.map(async (result) => {
       return {
         node: await result,
-        cursor: result[attribute]
+        cursor: result[attribute],
       };
     })
   );
@@ -176,9 +167,9 @@ module.exports = async (Model, args, attribute, orderBy, orm) => {
       hasNextPage: hasNextPage,
       hasPreviousPage: hasPreviousPage,
       startCursor: start,
-      endCursor: end
+      endCursor: end,
     },
     edges,
-    totalCount: count
+    totalCount: count,
   };
 };
